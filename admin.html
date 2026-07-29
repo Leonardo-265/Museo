@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración — Casa Museo Malvinas</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  body{ background: var(--papel-alto); }
+  .admin-wrap{ max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .admin-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+  .tabs{ display:flex; gap:8px; margin-bottom:28px; font-family: var(--mono); font-size:12px; text-transform:uppercase; }
+  .tab{ padding:8px 16px; border:1px solid var(--linea); cursor:pointer; background:var(--papel-alto); }
+  .tab.activo{ background:var(--petroleo); color:var(--papel-alto); border-color:var(--petroleo); }
+  .panel{ display:none; }
+  .panel.activo{ display:block; }
+  .login-box{ max-width:340px; margin:100px auto; padding:28px; border:1px solid var(--linea); background:var(--papel-alto); }
+  .login-box .campo{ margin-bottom:14px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th, td{ text-align:left; padding:10px 8px; border-bottom:1px solid var(--linea); vertical-align:top; }
+  th{ font-family:var(--mono); font-size:10px; text-transform:uppercase; color:var(--tinta-suave); }
+  .estado-badge{ font-family:var(--mono); font-size:10px; padding:2px 8px; border-radius:10px; text-transform:uppercase; }
+  .estado-pendiente{ background:#f0e2c2; color:#6b5416; }
+  .estado-confirmada{ background:rgba(75,83,32,0.15); color:var(--oliva); }
+  .estado-rechazada{ background:rgba(140,74,47,0.12); color:var(--oxido); }
+  select.estado-select{ font-family:var(--mono); font-size:11px; padding:4px; border:1px solid var(--linea); }
+  .foto-admin-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:20px; }
+  .foto-admin-card{ border:1px solid var(--linea); background:var(--papel-alto); }
+  .foto-admin-card img{ width:100%; aspect-ratio:4/3; object-fit:cover; }
+  .foto-admin-card .fa-info{ padding:8px; font-size:11px; }
+  .foto-admin-card button{ width:100%; border:none; border-top:1px solid var(--linea); background:none; padding:6px; font-family:var(--mono); font-size:10px; cursor:pointer; color:var(--oxido); }
+  .subida-box{ border:1px dashed var(--linea); padding:20px; margin-bottom:20px; }
+  .subida-box .campo{ margin-bottom:12px; }
+  textarea.contenido-textarea{ width:100%; min-height:140px; font-family:var(--sans); font-size:14px; padding:10px; border:1px solid var(--linea); }
+  .contenido-item{ margin-bottom:24px; }
+  .contenido-item label{ display:block; font-family:var(--mono); font-size:11px; text-transform:uppercase; margin-bottom:6px; color:var(--tinta-suave); }
+  .btn-sm{ font-family:var(--mono); font-size:11px; padding:6px 14px; border:1px solid var(--petroleo); color:var(--petroleo); background:none; cursor:pointer; margin-top:6px; }
+</style>
+</head>
+<body>
+
+<div id="login-view" class="login-box">
+  <h3>Ingresar al panel</h3>
+  <div class="campo"><label for="login-email">Email</label><input type="email" id="login-email"></div>
+  <div class="campo"><label for="login-pass">Contraseña</label><input type="password" id="login-pass"></div>
+  <button class="btn btn-primario" id="btn-login" style="width:100%;">Ingresar</button>
+  <p id="login-error" style="color:var(--oxido); font-size:12px; margin-top:10px;"></p>
+</div>
+
+<div id="admin-view" class="admin-wrap oculto">
+  <div class="admin-header">
+    <h2>Panel — Casa Museo Malvinas</h2>
+    <button class="btn btn-oscuro" id="btn-logout">Cerrar sesión</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab activo" data-panel="panel-fotos">Fotos</div>
+    <div class="tab" data-panel="panel-reservas">Reservas</div>
+    <div class="tab" data-panel="panel-contenido">Textos del sitio</div>
+  </div>
+
+  <!-- FOTOS -->
+  <div class="panel activo" id="panel-fotos">
+    <div class="subida-box">
+      <h3>Subir nueva foto</h3>
+      <div class="campo">
+        <label for="foto-archivo">Archivo de imagen</label>
+        <input type="file" id="foto-archivo" accept="image/*">
+      </div>
+      <div class="campo">
+        <label for="foto-titulo">Título (opcional)</label>
+        <input type="text" id="foto-titulo">
+      </div>
+      <div class="campo">
+        <label for="foto-categoria">Categoría</label>
+        <select id="foto-categoria">
+          <option value="casa">La casa</option>
+          <option value="objetos">Objetos</option>
+          <option value="documentos">Documentos</option>
+          <option value="eventos">Eventos</option>
+          <option value="otros">Otros</option>
+        </select>
+      </div>
+      <button class="btn btn-primario" id="btn-subir-foto">Subir foto</button>
+      <p id="subida-msg" style="font-family:var(--mono); font-size:12px; margin-top:10px;"></p>
+    </div>
+    <div class="foto-admin-grid" id="foto-admin-grid"></div>
+  </div>
+
+  <!-- RESERVAS -->
+  <div class="panel" id="panel-reservas">
+    <table>
+      <thead>
+        <tr><th>Tipo</th><th>Nombre</th><th>Contacto</th><th>Fecha</th><th>Personas</th><th>Estado</th></tr>
+      </thead>
+      <tbody id="tabla-reservas"></tbody>
+    </table>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="panel" id="panel-contenido"></div>
+</div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

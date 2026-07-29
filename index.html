@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Museo Malvinas — Gral. Manuel Jorge Campos</title>
+<meta name="description" content="Casa museo dedicada a la memoria de un veterano de la Guerra de Malvinas, en General Manuel Jorge Campos, La Pampa.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="nav-brand">Casa Museo Malvinas</span>
+    <div class="nav-links">
+      <a href="#historia">Historia</a>
+      <a href="#galeria">Galería</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#reservar">Reservar</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <p class="eyebrow">Casa museo — General Manuel J. Campos, La Pampa</p>
+    <h1>Casa Museo Malvinas</h1>
+    <div class="horizonte"></div>
+    <p class="cita" id="cita-destacada">"La memoria de un veterano, transformada en historia viva para su pueblo."</p>
+    <a href="#reservar" class="btn btn-primario">Reservar visita</a>
+  </div>
+</header>
+
+<section id="historia">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Historia</p>
+      <h2>General Manuel Jorge Campos</h2>
+    </div>
+    <div class="historia-body">
+      <div class="ruta"></div>
+      <div class="historia-texto" id="texto-biografia">
+        <p>Cargando la historia...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Galería</p>
+      <h2>Fotografías del museo</h2>
+    </div>
+    <div class="galeria-filtros" id="galeria-filtros">
+      <span class="filtro activo" data-cat="todas">Todas</span>
+      <span class="filtro" data-cat="casa">La casa</span>
+      <span class="filtro" data-cat="objetos">Objetos</span>
+      <span class="filtro" data-cat="documentos">Documentos</span>
+      <span class="filtro" data-cat="eventos">Eventos</span>
+    </div>
+    <div class="galeria-grid" id="galeria-grid">
+      <p class="galeria-vacio">Cargando fotos...</p>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Ubicación y contacto</p>
+      <h2>Cómo llegar</h2>
+    </div>
+    <div class="ubicacion-grid">
+      <div class="mapa">
+        <iframe
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Ramona+Pedroza+147,+General+Manuel+J.+Campos,+La+Pampa&output=embed">
+        </iframe>
+      </div>
+      <div class="datos-contacto">
+        <div><span class="icono">DIR</span><span id="dato-direccion">Ramona Pedroza 147, General Manuel J. Campos, La Pampa</span></div>
+        <div><span class="icono">TEL</span><span id="dato-telefono">A definir</span></div>
+        <div><span class="icono">MAIL</span><span id="dato-email">A definir</span></div>
+        <div><span class="icono">HOR</span><span id="dato-horarios">A definir</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reservar">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Reservar visita</p>
+      <h2>Coordiná tu recorrido</h2>
+      <p>Podés visitarnos de manera particular o coordinar una visita institucional (escuelas, organismos, grupos).</p>
+    </div>
+
+    <div class="tipo-selector">
+      <button type="button" class="tipo-card activo" data-tipo="particular">
+        <div class="t-titulo">Particular</div>
+        <div class="t-desc">Visita individual o familiar</div>
+      </button>
+      <button type="button" class="tipo-card" data-tipo="institucion">
+        <div class="t-titulo">Institución</div>
+        <div class="t-desc">Escuelas y organismos</div>
+      </button>
+    </div>
+
+    <form class="form-reserva" id="form-reserva">
+      <input type="hidden" id="tipo" value="particular">
+
+      <div class="campo full">
+        <label for="nombre" id="label-nombre">Nombre y apellido</label>
+        <input type="text" id="nombre" required>
+      </div>
+
+      <div class="campo" id="campo-dni">
+        <label for="dni">DNI (opcional)</label>
+        <input type="text" id="dni">
+      </div>
+
+      <div class="campo oculto" id="campo-tipo-institucion">
+        <label for="tipo_institucion">Tipo de institución</label>
+        <select id="tipo_institucion">
+          <option value="escuela_primaria">Escuela primaria</option>
+          <option value="escuela_secundaria">Escuela secundaria</option>
+          <option value="universidad">Universidad / terciario</option>
+          <option value="organismo_publico">Organismo público</option>
+          <option value="ong">ONG / asociación</option>
+          <option value="otra">Otra</option>
+        </select>
+      </div>
+
+      <div class="campo oculto" id="campo-contacto-nombre">
+        <label for="contacto_nombre">Persona de contacto</label>
+        <input type="text" id="contacto_nombre">
+      </div>
+
+      <div class="campo oculto" id="campo-contacto-cargo">
+        <label for="contacto_cargo">Cargo</label>
+        <input type="text" id="contacto_cargo">
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono / WhatsApp</label>
+        <input type="tel" id="telefono" required>
+      </div>
+
+      <div class="campo">
+        <label for="email">Email</label>
+        <input type="email" id="email">
+      </div>
+
+      <div class="campo">
+        <label for="cantidad_personas">Cantidad de personas</label>
+        <input type="number" id="cantidad_personas" min="1" value="1" required>
+      </div>
+
+      <div class="campo oculto" id="campo-rango-edad">
+        <label for="rango_edad">Rango de edad del grupo</label>
+        <input type="text" id="rango_edad" placeholder="Ej: 10 a 12 años">
+      </div>
+
+      <div class="campo">
+        <label for="fecha_propuesta">Fecha propuesta</label>
+        <input type="date" id="fecha_propuesta">
+      </div>
+
+      <div class="campo">
+        <label for="horario">Horario preferido</label>
+        <input type="text" id="horario" placeholder="Ej: 10:00 hs o flexible">
+      </div>
+
+      <div class="campo oculto full" id="campo-objetivo">
+        <label for="objetivo_visita">Objetivo de la visita</label>
+        <input type="text" id="objetivo_visita" placeholder="Ej: charla educativa, recorrido guiado">
+      </div>
+
+      <div class="campo oculto full" id="campo-accesibilidad">
+        <label for="accesibilidad">Necesidades especiales (accesibilidad, transporte, etc.)</label>
+        <input type="text" id="accesibilidad">
+      </div>
+
+      <div class="campo full" id="campo-como-entero">
+        <label for="como_se_entero">¿Cómo se enteraron del museo? (opcional)</label>
+        <input type="text" id="como_se_entero">
+      </div>
+
+      <div class="campo full">
+        <label for="comentarios">Comentarios (opcional)</label>
+        <textarea id="comentarios"></textarea>
+      </div>
+
+      <div class="full">
+        <button type="submit" class="btn btn-primario">Enviar reserva</button>
+      </div>
+
+      <div class="full" id="form-msg"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Casa Museo Malvinas — Gral. Manuel Jorge Campos, La Pampa</div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

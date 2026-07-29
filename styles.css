@@ -1,0 +1,267 @@
+/* =========================================================
+   Casa Museo Malvinas — Sistema de diseño
+   Paleta: papel de archivo, tinta, petróleo (Atlántico Sur), oliva
+   Tipografía: serif editorial (títulos) + sans documental (cuerpo)
+             + mono de máquina de escribir (fechas, etiquetas, datos)
+   Motivo propio: "línea de ruta" — un trazo vertical punteado que
+   recorre la historia, como la huella de un recorrido/vida.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --papel: #EDE8DA;
+  --papel-alto: #F6F3E9;
+  --tinta: #201F1B;
+  --tinta-suave: #4A4A42;
+  --petroleo: #16303D;
+  --petroleo-claro: #245063;
+  --oliva: #4B5320;
+  --oxido: #8C4A2F;
+  --linea: #C7BFA9;
+
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius: 2px;
+  --maxw: 1040px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; }
+img{ max-width:100%; display:block; }
+
+.wrap{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.eyebrow{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+h1,h2,h3{
+  font-family: var(--serif);
+  font-weight: 600;
+  margin: 0;
+  color: var(--tinta);
+}
+
+h1{ font-size: clamp(32px, 5vw, 52px); line-height:1.08; }
+h2{ font-size: clamp(22px, 3vw, 30px); }
+h3{ font-size: 18px; }
+
+p{ margin: 0 0 12px; color: var(--tinta-suave); }
+
+/* ---------- NAV ---------- */
+.nav{
+  position: sticky; top:0; z-index:20;
+  background: rgba(237,232,218,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--linea);
+}
+.nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:14px; padding-bottom:14px;
+}
+.nav-brand{
+  font-family: var(--serif); font-weight:600; font-size:16px;
+}
+.nav-links{ display:flex; gap:24px; font-family: var(--mono); font-size:12px; letter-spacing:0.04em; }
+.nav-links a{ text-decoration:none; color: var(--tinta-suave); }
+.nav-links a:hover{ color: var(--petroleo); }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height: 78vh;
+  display:flex; align-items:flex-end;
+  background: linear-gradient(180deg, rgba(22,48,61,0.15), rgba(22,48,61,0.78)), var(--tinta) center/cover;
+  background-image: linear-gradient(180deg, rgba(22,48,61,0.12), rgba(20,20,17,0.86)), var(--hero-img, none);
+  background-size: cover;
+  background-position: center;
+  color: var(--papel-alto);
+}
+.hero .wrap{ padding-bottom: 56px; padding-top:120px; }
+.hero .eyebrow{ color: rgba(246,243,233,0.72); }
+.hero h1{ color: var(--papel-alto); margin-top:10px; max-width: 720px; }
+.hero .cita{
+  font-family: var(--serif); font-style: italic; font-size:16px;
+  color: rgba(246,243,233,0.85); max-width:520px; margin: 18px 0 26px;
+}
+.horizonte{
+  width:64px; height:1px; background: var(--oxido); margin: 18px 0;
+}
+
+/* ---------- BOTONES ---------- */
+.btn{
+  font-family: var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 12px 20px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor:pointer;
+  text-decoration:none;
+  transition: background .15s ease, color .15s ease;
+}
+.btn-primario{
+  background: var(--oxido); border-color: var(--oxido); color: var(--papel-alto);
+}
+.btn-primario:hover{ background: #723a24; }
+.btn-claro{ color: var(--papel-alto); }
+.btn-claro:hover{ background: rgba(246,243,233,0.12); }
+.btn-oscuro{ color: var(--petroleo); }
+.btn-oscuro:hover{ background: rgba(22,48,61,0.08); }
+
+/* ---------- SECCIONES ---------- */
+section{ padding: 72px 0; border-bottom: 1px solid var(--linea); }
+section:last-of-type{ border-bottom:none; }
+
+.section-head{ margin-bottom: 36px; max-width: 620px; }
+.section-head .eyebrow{ margin-bottom:8px; }
+
+/* ---------- HISTORIA (con línea de ruta) ---------- */
+.historia-body{
+  display:grid; grid-template-columns: 24px 1fr; gap: 0 24px;
+}
+.ruta{
+  position:relative;
+  border-left: 1px dashed var(--oxido);
+  margin-left: 6px;
+}
+.ruta::before, .ruta::after{
+  content:''; position:absolute; left:-4px; width:8px; height:8px;
+  border-radius:50%; background: var(--oxido);
+}
+.ruta::before{ top:2px; }
+.ruta::after{ bottom:2px; }
+.historia-texto{ font-size:16px; color: var(--tinta-suave); max-width: 640px; }
+.historia-texto p{ font-size:16px; }
+
+/* ---------- GALERIA ---------- */
+.galeria-filtros{
+  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;
+  font-family: var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+}
+.filtro{
+  padding:6px 12px; border:1px solid var(--linea); border-radius: 20px;
+  cursor:pointer; background: var(--papel-alto); color: var(--tinta-suave);
+}
+.filtro.activo{ background: var(--petroleo); color: var(--papel-alto); border-color: var(--petroleo); }
+
+.galeria-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap:14px;
+}
+.foto-card{
+  background: var(--papel-alto); border:1px solid var(--linea); overflow:hidden;
+}
+.foto-card img{ width:100%; aspect-ratio: 4/3; object-fit:cover; }
+.foto-card .cap{
+  font-family: var(--mono); font-size:10px; color: var(--tinta-suave);
+  padding:8px 10px; text-transform:uppercase; letter-spacing:0.04em;
+}
+.galeria-vacio{
+  font-family: var(--mono); font-size:12px; color: var(--tinta-suave);
+  border:1px dashed var(--linea); padding:32px; text-align:center;
+}
+
+/* ---------- UBICACION ---------- */
+.ubicacion-grid{
+  display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px; align-items:start;
+}
+.mapa{
+  border:1px solid var(--linea); background: var(--papel-alto);
+  aspect-ratio: 4/3; overflow:hidden;
+}
+.mapa iframe{ width:100%; height:100%; border:0; filter: grayscale(0.25) contrast(1.05); }
+.datos-contacto div{
+  display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--linea);
+  font-size:14px;
+}
+.datos-contacto div:last-child{ border-bottom:none; }
+.datos-contacto .icono{
+  font-family: var(--mono); color: var(--oxido); width:20px; flex-shrink:0;
+}
+
+/* ---------- RESERVAR ---------- */
+.tipo-selector{
+  display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:32px;
+  max-width: 520px;
+}
+.tipo-card{
+  border:1px solid var(--linea); background: var(--papel-alto);
+  padding:20px; cursor:pointer; text-align:left;
+}
+.tipo-card.activo{ border-color: var(--petroleo); background: rgba(22,48,61,0.05); }
+.tipo-card .t-titulo{ font-family: var(--serif); font-size:16px; margin-bottom:4px; }
+.tipo-card .t-desc{ font-family: var(--mono); font-size:11px; color: var(--tinta-suave); text-transform:uppercase; letter-spacing:0.03em; }
+
+.form-reserva{
+  max-width: 640px;
+  display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+}
+.form-reserva .full{ grid-column: 1 / -1; }
+.campo label{
+  display:block; font-family: var(--mono); font-size:11px; text-transform:uppercase;
+  letter-spacing:0.04em; color: var(--tinta-suave); margin-bottom:6px;
+}
+.campo input, .campo select, .campo textarea{
+  width:100%; font-family: var(--sans); font-size:14px;
+  padding:10px 12px; border:1px solid var(--linea); background: var(--papel-alto);
+  border-radius: var(--radius); color: var(--tinta);
+}
+.campo textarea{ resize: vertical; min-height:70px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus{
+  outline:none; border-color: var(--petroleo);
+}
+.oculto{ display:none !important; }
+
+.form-msg{
+  font-family: var(--mono); font-size:12px; margin-top:14px; padding:10px 14px;
+  border-radius: var(--radius);
+}
+.form-msg.ok{ background: rgba(75,83,32,0.12); color: var(--oliva); border:1px solid var(--oliva); }
+.form-msg.error{ background: rgba(140,74,47,0.1); color: var(--oxido); border:1px solid var(--oxido); }
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 32px 0; background: var(--tinta); color: rgba(246,243,233,0.6);
+  font-family: var(--mono); font-size:11px; text-align:center;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 720px){
+  .ubicacion-grid{ grid-template-columns: 1fr; }
+  .form-reserva{ grid-template-columns: 1fr; }
+  .nav-links{ display:none; }
+  .hero .wrap{ padding-top:90px; }
+}
+
+/* ---------- FOCUS VISIBLE ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline: 2px solid var(--petroleo-claro);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
