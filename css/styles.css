@@ -143,6 +143,7 @@ p{ margin: 0 0 12px; color: var(--tinta-suave); }
   background: transparent;
   cursor:pointer;
   text-decoration:none;
+  min-height:44px; 
   transition: background .15s ease, color .15s ease;
 }
 .btn-primario{
@@ -247,7 +248,7 @@ section:last-of-type{ border-bottom:none; }
   letter-spacing:0.04em; color: var(--tinta-suave); margin-bottom:6px;
 }
 .campo input, .campo select, .campo textarea{
-  width:100%; font-family: var(--sans); font-size:14px;
+  width:100%; font-family: var(--sans); font-size:16px;
   padding:10px 12px; border:1px solid var(--linea); background: var(--papel-alto);
   border-radius: var(--radius); color: var(--tinta);
 }
@@ -274,7 +275,7 @@ footer{
 @media (max-width: 720px){
   .ubicacion-grid{ grid-template-columns: 1fr; }
   .form-reserva{ grid-template-columns: 1fr; }
-  .nav-links{ display:none; }
+  .hero{ min-height: 60vh; }
   .hero .wrap{ padding-top:90px; }
 }
 
