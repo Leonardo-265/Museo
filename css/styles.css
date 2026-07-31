@@ -220,9 +220,10 @@ section:last-of-type{ border-bottom:none; }
   display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--linea);
   font-size:14px;
 }
-.datos-contacto div:last-child{ border-bottom:none; }
+
 .datos-contacto .icono{
-  font-family: var(--mono); color: var(--oxido); width:20px; flex-shrink:0;
+  font-family: var(--mono); color: var(--oxido); width:76px; flex-shrink:0;
+  white-space:nowrap; font-size:11px; letter-spacing:0.03em;
 }
 
 /* ---------- RESERVAR ---------- */
