@@ -19,6 +19,12 @@ async function cargarContenido() {
   if (mapa.telefono) document.getElementById("dato-telefono").textContent = mapa.telefono;
   if (mapa.email) document.getElementById("dato-email").textContent = mapa.email;
   if (mapa.horarios) document.getElementById("dato-horarios").textContent = mapa.horarios;
+
+  const heroImg = document.getElementById("hero-img");
+  if (heroImg && mapa.portada) {
+    heroImg.src = mapa.portada;
+    heroImg.classList.remove("oculto");
+  }
 }
 
 // ---------- Galería ----------

@@ -21,7 +21,9 @@ supabase/schema.sql  → script para crear las tablas en Supabase
 1. Entrá a https://supabase.com y creá un proyecto nuevo (gratis).
 2. Andá a **SQL Editor** y pegá el contenido completo de `supabase/schema.sql`. Ejecutalo.
 3. Andá a **Storage** → **New bucket** → nombre `fotos` → marcá **Public bucket**.
-4. Andá a **Authentication** → **Users** → **Add user** y creá tu usuario admin
+4. Volvé al **SQL Editor** y ejecutá solo la sección **STORAGE** al final de `schema.sql`
+   (las políticas de `storage.objects`). Sin eso, la subida de fotos falla por permisos.
+5. Andá a **Authentication** → **Users** → **Add user** y creá tu usuario admin
    (el email y contraseña que vas a usar para entrar al panel).
 
 ## Paso 2 — Conectar el sitio con tu proyecto

@@ -46,10 +46,65 @@ document.querySelectorAll(".tab").forEach(tab => {
 });
 
 function iniciarPanel() {
+  cargarPortadaAdmin();
   cargarFotosAdmin();
   cargarReservas();
   cargarContenidoAdmin();
 }
+
+async function subirImagenStorage(archivo) {
+  const extension = archivo.name.includes(".") ? archivo.name.slice(archivo.name.lastIndexOf(".")) : "";
+  const nombreArchivo = `${Date.now()}${extension.toLowerCase().replace(/[^a-z0-9.]/g, "")}`;
+  const { error: uploadError } = await supabase.storage
+    .from("fotos")
+    .upload(nombreArchivo, archivo, {
+      contentType: archivo.type || "image/jpeg",
+      upsert: false,
+    });
+  if (uploadError) return { error: uploadError };
+  const { data: urlData } = supabase.storage.from("fotos").getPublicUrl(nombreArchivo);
+  return { url: urlData.publicUrl };
+}
+
+// ================= PORTADA =================
+async function cargarPortadaAdmin() {
+  const preview = document.getElementById("portada-preview");
+  const { data } = await supabase.from("contenido").select("valor").eq("clave", "portada").maybeSingle();
+  if (data?.valor) {
+    preview.innerHTML = `<img src="${data.valor}" alt="Portada actual" style="max-width:320px; border:1px solid var(--linea);">`;
+  } else {
+    preview.innerHTML = `<p style="font-size:12px; color:var(--tinta-suave);">Todavía no hay foto de portada.</p>`;
+  }
+}
+
+document.getElementById("btn-subir-portada").addEventListener("click", async () => {
+  const archivoInput = document.getElementById("portada-archivo");
+  const msg = document.getElementById("portada-msg");
+  const archivo = archivoInput.files[0];
+  if (!archivo) { msg.textContent = "Elegí una imagen primero."; return; }
+
+  msg.textContent = "Subiendo...";
+  const { url, error: uploadError } = await subirImagenStorage(archivo);
+  if (uploadError) {
+    msg.textContent = `Error al subir: ${uploadError.message}`;
+    console.error(uploadError);
+    return;
+  }
+
+  const { error: saveError } = await supabase
+    .from("contenido")
+    .upsert({ clave: "portada", valor: url, actualizado_en: new Date().toISOString() });
+
+  if (saveError) {
+    msg.textContent = `Error al guardar: ${saveError.message}`;
+    console.error(saveError);
+    return;
+  }
+
+  msg.textContent = "Portada actualizada.";
+  archivoInput.value = "";
+  cargarPortadaAdmin();
+});
 
 // ================= FOTOS =================
 async function cargarFotosAdmin() {
@@ -85,27 +140,21 @@ document.getElementById("btn-subir-foto").addEventListener("click", async () => 
 
   msg.textContent = "Subiendo...";
 
-  const nombreArchivo = `${Date.now()}-${archivo.name.replace(/\s+/g, "-")}`;
-  const { error: uploadError } = await supabase.storage
-    .from("fotos")
-    .upload(nombreArchivo, archivo);
-
+  const { url, error: uploadError } = await subirImagenStorage(archivo);
   if (uploadError) {
-    msg.textContent = "Error al subir la imagen.";
+    msg.textContent = `Error al subir la imagen: ${uploadError.message}`;
     console.error(uploadError);
     return;
   }
 
-  const { data: urlData } = supabase.storage.from("fotos").getPublicUrl(nombreArchivo);
-
   const { error: insertError } = await supabase.from("fotos").insert({
-    url: urlData.publicUrl,
+    url,
     titulo: titulo || null,
     categoria,
   });
 
   if (insertError) {
-    msg.textContent = "Error al guardar la foto en la base de datos.";
+    msg.textContent = `Error al guardar en la base de datos: ${insertError.message}`;
     console.error(insertError);
     return;
   }
@@ -166,7 +215,7 @@ async function cargarContenidoAdmin() {
   const { data, error } = await supabase.from("contenido").select("*");
   if (error || !data) { panel.innerHTML = ""; return; }
 
-  panel.innerHTML = data.map(c => `
+  panel.innerHTML = data.filter(c => c.clave !== "portada").map(c => `
     <div class="contenido-item">
       <label for="c-${c.clave}">${ETIQUETAS[c.clave] || c.clave}</label>
       <textarea class="contenido-textarea" id="c-${c.clave}">${c.valor}</textarea>

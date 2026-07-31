@@ -62,6 +62,16 @@
   <!-- FOTOS -->
   <div class="panel activo" id="panel-fotos">
     <div class="subida-box">
+      <h3>Foto de portada (inicio del sitio)</h3>
+      <div id="portada-preview" style="margin-bottom:12px;"></div>
+      <div class="campo">
+        <label for="portada-archivo">Imagen de portada</label>
+        <input type="file" id="portada-archivo" accept="image/*">
+      </div>
+      <button class="btn btn-primario" id="btn-subir-portada">Actualizar portada</button>
+      <p id="portada-msg" style="font-family:var(--mono); font-size:12px; margin-top:10px;"></p>
+    </div>
+    <div class="subida-box">
       <h3>Subir nueva foto</h3>
       <div class="campo">
         <label for="foto-archivo">Archivo de imagen</label>

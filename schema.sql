@@ -57,7 +57,8 @@ insert into contenido (clave, valor) values
   ('telefono', ''),
   ('email', ''),
   ('horarios', 'Martes a domingo de 10 a 18 hs'),
-  ('cita_destacada', 'La memoria de un veterano, transformada en historia viva para su pueblo.')
+  ('cita_destacada', 'La memoria de un veterano, transformada en historia viva para su pueblo.'),
+  ('portada', '')
 on conflict (clave) do nothing;
 
 -- =========================================================
@@ -86,6 +87,20 @@ create policy "contenido_admin_insertar" on contenido for insert with check (aut
 -- =========================================================
 -- STORAGE
 -- =========================================================
--- Además de este script, hay que crear manualmente en Supabase:
--- Storage > New bucket > nombre: "fotos" > marcar como "Public bucket"
--- Eso permite que las imágenes subidas se vean en el sitio público.
+-- 1) Crear manualmente en Supabase:
+--    Storage > New bucket > nombre: "fotos" > marcar como "Public bucket"
+-- 2) Ejecutar las políticas de abajo (sin esto la subida falla con error de permisos):
+
+create policy "fotos_lectura_publica_storage"
+on storage.objects for select
+using ( bucket_id = 'fotos' );
+
+create policy "fotos_subida_admin"
+on storage.objects for insert
+to authenticated
+with check ( bucket_id = 'fotos' );
+
+create policy "fotos_borrado_admin"
+on storage.objects for delete
+to authenticated
+using ( bucket_id = 'fotos' );
