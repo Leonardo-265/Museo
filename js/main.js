@@ -146,3 +146,7 @@ document.getElementById("form-reserva").addEventListener("submit", async (e) => 
 // ---------- Inicio ----------
 cargarContenido();
 cargarGaleria();
+
+document.getElementById("nav-toggle")?.addEventListener("click", () => {
+  document.getElementById("nav-links").classList.toggle("abierto");
+});
