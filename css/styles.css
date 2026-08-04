@@ -290,3 +290,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   html{ scroll-behavior:auto; }
   *{ transition:none !important; }
 }
+
+.lightbox{
+  display:none;
+  position:fixed; inset:0; z-index:100;
+  background: rgba(15,15,13,0.94);
+  align-items:center; justify-content:center;
+  flex-direction:column; gap:16px;
+  padding: 40px 20px;
+  cursor: zoom-out;
+}
+.lightbox.abierto{ display:flex; }
+.lightbox img{
+  max-width: 92vw; max-height: 82vh;
+  object-fit: contain;
+  border: 1px solid rgba(246,243,233,0.15);
+  cursor: default;
+}
+.lightbox p{
+  font-family: var(--mono); font-size:12px; letter-spacing:0.04em;
+  color: rgba(246,243,233,0.75); text-transform:uppercase; margin:0;
+}
+.lightbox-cerrar{
+  position:absolute; top:20px; right:24px;
+  background:none; border:1px solid rgba(246,243,233,0.4);
+  color: var(--papel-alto); font-size:16px;
+  width:40px; height:40px; border-radius:50%;
+  cursor:pointer;
+}
+.foto-card{ cursor: zoom-in; }

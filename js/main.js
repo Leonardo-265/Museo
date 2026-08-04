@@ -96,6 +96,34 @@ document.querySelectorAll(".tipo-card").forEach(card => {
   });
 });
 
+// ---------- Lightbox (ampliar foto al hacer click) ----------
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxCap = document.getElementById("lightbox-cap");
+
+document.getElementById("galeria-grid").addEventListener("click", (e) => {
+  const card = e.target.closest(".foto-card");
+  if (!card) return;
+  const img = card.querySelector("img");
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt;
+  lightboxCap.textContent = img.alt || "";
+  lightbox.classList.add("abierto");
+});
+
+function cerrarLightbox() {
+  lightbox.classList.remove("abierto");
+  lightboxImg.src = "";
+}
+
+document.getElementById("lightbox-cerrar").addEventListener("click", cerrarLightbox);
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) cerrarLightbox();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") cerrarLightbox();
+});
+
 // ---------- Envío del formulario ----------
 document.getElementById("form-reserva").addEventListener("submit", async (e) => {
   e.preventDefault();
