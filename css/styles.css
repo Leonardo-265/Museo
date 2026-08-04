@@ -87,6 +87,7 @@ p{ margin: 0 0 12px; color: var(--tinta-suave); }
 }
 .nav-links{ display:flex; gap:24px; font-family: var(--mono); font-size:12px; letter-spacing:0.04em; }
 .nav-links a{ text-decoration:none; color: var(--tinta-suave); }
+.nav-toggle{ display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--tinta); padding:4px; }
 .nav-links a:hover{ color: var(--petroleo); }
 .nav-logo{
   width: 32px;
@@ -286,6 +287,14 @@ footer{
   .form-reserva{ grid-template-columns: 1fr; }
   .hero{ min-height: 60vh; }
   .hero .wrap{ padding-top:90px; }
+  .nav-toggle{ display:block; }
+  .nav-links{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    background:var(--papel-alto); border-bottom:1px solid var(--linea);
+    flex-direction:column; padding:16px 28px; gap:16px;
+  }
+  .nav-links.abierto{ display:flex; }
+
 }
 
 /* ---------- FOCUS VISIBLE ---------- */
