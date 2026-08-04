@@ -83,10 +83,18 @@ p{ margin: 0 0 12px; color: var(--tinta-suave); }
 }
 .nav-brand{
   font-family: var(--serif); font-weight:600; font-size:16px;
+  display:flex; align-items:center; gap:10px;
 }
 .nav-links{ display:flex; gap:24px; font-family: var(--mono); font-size:12px; letter-spacing:0.04em; }
 .nav-links a{ text-decoration:none; color: var(--tinta-suave); }
 .nav-links a:hover{ color: var(--petroleo); }
+.nav-logo{
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--linea);
+}
 
 /* ---------- HERO ---------- */
 .hero{
